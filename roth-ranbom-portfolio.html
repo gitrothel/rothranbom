@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roth Ranbom – Strategist, Artist, Provocateur</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #1a1a1a;
+            --cream: #faf8f4;
+            --slate: #505050;
+            --whisper: #e8e4dc;
+            --accent: #8b4513;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Header */
+        header {
+            padding: 8vh 6vw 4vh;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 0.95;
+            margin-bottom: 0.3em;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--slate);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 2vh 6vw;
+            position: sticky;
+            top: 0;
+            background: rgba(250, 248, 244, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 3em;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8vh 6vw;
+        }
+
+        section {
+            margin-bottom: 15vh;
+        }
+
+        .section-number {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--slate);
+            margin-bottom: 0.5em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            margin-bottom: 1.5em;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6vw;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+            line-height: 1.7;
+            color: var(--slate);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5em;
+        }
+
+        .about-text strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .stats {
+            background: white;
+            padding: 3em;
+            border: 1px solid var(--whisper);
+        }
+
+        .stat-item {
+            margin-bottom: 2em;
+            padding-bottom: 2em;
+            border-bottom: 1px solid var(--whisper);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.2em;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--slate);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Experience Section */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5em;
+        }
+
+        .experience-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4em;
+            padding-bottom: 3em;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .experience-meta {
+            position: sticky;
+            top: 120px;
+        }
+
+        .experience-date {
+            font-size: 0.9rem;
+            color: var(--slate);
+            margin-bottom: 0.5em;
+            letter-spacing: 0.03em;
+        }
+
+        .experience-location {
+            font-size: 0.85rem;
+            color: var(--slate);
+            font-style: italic;
+        }
+
+        .experience-content h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.3em;
+            letter-spacing: -0.01em;
+        }
+
+        .experience-content h4 {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 1.5em;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .experience-content ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8em;
+        }
+
+        .experience-content li {
+            position: relative;
+            padding-left: 1.5em;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        .experience-content li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Music Section */
+        .music-intro {
+            font-size: 1.2rem;
+            color: var(--slate);
+            margin-bottom: 4em;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .album-container {
+            background: white;
+            border: 1px solid var(--whisper);
+            padding: 4em;
+            margin-bottom: 3em;
+        }
+
+        .album-header {
+            margin-bottom: 3em;
+            padding-bottom: 2em;
+            border-bottom: 2px solid var(--whisper);
+        }
+
+        .album-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 0.3em;
+            letter-spacing: -0.01em;
+        }
+
+        .album-description {
+            font-size: 1.1rem;
+            color: var(--slate);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .tracklist {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1em 2em;
+            align-items: baseline;
+        }
+
+        .track-number {
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .track-title {
+            font-size: 1.1rem;
+            color: var(--ink);
+        }
+
+        .track-duration {
+            color: var(--slate);
+            font-size: 0.9rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3em;
+        }
+
+        .project-card {
+            background: white;
+            border: 1px solid var(--whisper);
+            padding: 2.5em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .project-tag {
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1em;
+            font-weight: 600;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5em;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .project-subtitle {
+            font-size: 0.95rem;
+            color: var(--slate);
+            margin-bottom: 1.5em;
+            font-style: italic;
+        }
+
+        .project-card p {
+            color: var(--slate);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6em;
+            align-items: start;
+        }
+
+        .contact-text {
+            font-size: 1.8rem;
+            line-height: 1.5;
+            color: var(--slate);
+            font-weight: 300;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3em;
+        }
+
+        .contact-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate);
+        }
+
+        .contact-value {
+            font-size: 1.2rem;
+            color: var(--ink);
+        }
+
+        .contact-value a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4vh 6vw;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            text-align: center;
+            color: var(--slate);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-grid,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 3em;
+            }
+
+            .experience-item {
+                grid-template-columns: 1fr;
+                gap: 1.5em;
+            }
+
+            .experience-meta {
+                position: static;
+            }
+
+            nav ul {
+                gap: 1.5em;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Subtle animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    
+    <header>
+        <div class="header-content">
+            <h1>Roth Ranbom</h1>
+            <p class="subtitle">Strategist, Artist, Provocateur</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#music">Music</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about">
+            <div class="section-number">01</div>
+            <h2>About</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p><strong>15 years orchestrating desire in luxury fashion.</strong> From Pronovias to Reem Acra, I've mastered the alchemical art of turning fabric into fantasy and clients into believers.</p>
+                    <p>I don't just sell dresses—I architect transformations. My approach blends strategic ruthlessness with emotional intelligence, turning every consultation into a psychological chess match where everyone wins.</p>
+                    <p>Beyond the showroom, I'm a cultural critic and artist exploring power, mythology, and commodification through dark pop and experimental sound. Think MKUltra meets Madison Avenue.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">$1.2M</div>
+                        <div class="stat-label">Sales in 6 Months<br>ELIE SAAB</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">93%</div>
+                        <div class="stat-label">Close Efficiency<br>Henri's Bridal</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">35%</div>
+                        <div class="stat-label">Revenue Increase<br>Reem Acra Couture</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Client Relationships<br>Maintained</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="section-number">02</div>
+            <h2>Experience</h2>
+            <div class="experience-list">
+                <article class="experience-item">
+                    <div class="experience-meta">
+                        <div class="experience-date">Aug 2022 – Apr 2023</div>
+                        <div class="experience-location">Manhattan, NY</div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Manager, Couture & VIP Client Relations</h3>
+                        <h4>Reem Acra New York</h4>
+                        <ul>
+                            <li>Orchestrated couture department operations, synchronizing design, production, and sales teams to deliver custom garments that honored both client vision and brand DNA</li>
+                            <li>Developed and executed sales strategies and promotional events that resulted in a 35% revenue increase during tenure</li>
+                            <li>Architected a fully relational inventory database for 1000+ original samples, transforming operational chaos into streamlined efficiency</li>
+                            <li>Cultivated a goal-driven team culture through targeted training and mentorship</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-item">
+                    <div class="experience-meta">
+                        <div class="experience-date">Jun 2021 – Apr 2022</div>
+                        <div class="experience-location">Manhattan, NY</div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Fashion Advisor</h3>
+                        <h4>ELIE SAAB</h4>
+                        <ul>
+                            <li>Top salesperson across North, South, and Central America—produced over $1.2M in sales within first six months</li>
+                            <li>Built and maintained a client book of 100+ relationships through strategic data capture and personalized engagement</li>
+                            <li>Pioneered proactive outreach strategies to luxury client base, keeping them informed of exclusive events and collections</li>
+                            <li>Revolutionized consignment operations through strategic questioning and active listening—achieved ~85% sell-through success rate</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-item">
+                    <div class="experience-meta">
+                        <div class="experience-date">Dec 2019 – Jun 2021</div>
+                        <div class="experience-location">Manhattan, NY</div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Sales Advisor</h3>
+                        <h4>PRONOVIAS</h4>
+                        <ul>
+                            <li>Global top-seller—consistently exceeded monthly sales targets by 2x</li>
+                            <li>Achieved highest efficiency company-wide, outpacing colleagues by at least 10%</li>
+                            <li>Cultivated rapid revenue growth through authentic client connections and strategic cross-selling across all departments</li>
+                            <li>Personal UPT average of 1.9 (vs store average of 0.8), consistently achieving and exceeding personal and team sales goals</li>
+                            <li>Trained staff in elevated one-on-one consultation techniques</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-item">
+                    <div class="experience-meta">
+                        <div class="experience-date">Apr 2018 – Dec 2019</div>
+                        <div class="experience-location">Dublin, OH</div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Assistant Manager</h3>
+                        <h4>White Bridal Boutiques</h4>
+                        <ul>
+                            <li>Third hire who drove explosive growth—personal sales represented approximately 44% of total company revenue within first eight months</li>
+                            <li>Demonstrated encyclopedic product knowledge to consistently exceed client expectations</li>
+                            <li>Executed strategic pricing methodologies that maximized profit margins (average exceeding 5x)</li>
+                            <li>Universally recognized as internal expert in product knowledge and sales operations</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-item">
+                    <div class="experience-meta">
+                        <div class="experience-date">Dec 2009 – Apr 2017</div>
+                        <div class="experience-location">Columbus, OH</div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Senior Sales Associate</h3>
+                        <h4>Henri's Bridal</h4>
+                        <ul>
+                            <li>Rapidly promoted from support staff to top-seller position maintained from 2013-2018</li>
+                            <li>Average yearly sales of ~$600K</li>
+                            <li>93% close efficiency rate while managing five or more clients simultaneously</li>
+                            <li>Remained composed and strategic in high-pressure, fast-paced environment</li>
+                            <li>Trusted with key-holding, cash-handling, and deposit responsibilities for eight-figure storefront</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="experience-item">
+                    <div class="experience-meta">
+                        <div class="experience-date">May 2015 – Sep 2016</div>
+                        <div class="experience-location">Columbus, OH</div>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Women's Denim Brand Ambassador</h3>
+                        <h4>Saks Fifth Avenue</h4>
+                        <ul>
+                            <li>Led bi-weekly all-store meetings for 40+ team members, showcasing new products and strategizing solutions for underperforming styles</li>
+                            <li>Exceeded seasonal stretch sales plan by more than 22%</li>
+                            <li>Collaborated with store management to develop action plans and orchestrate product launches</li>
+                            <li>Increased season sell-through rates by more than 10%</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-number">03</div>
+            <h2>Notable Projects</h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <div class="project-tag">Brand Initiative</div>
+                    <h3>HEROES Campaign</h3>
+                    <p class="project-subtitle">Pronovias | Jun 2020 – Oct 2021</p>
+                    <p>Volunteered styling services for 80+ frontline healthcare workers during COVID-19, creating lasting memories while generating significant positive media attention and strengthening brand recognition for Pronovias.</p>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-tag">Operations</div>
+                    <h3>Sustainability Initiative</h3>
+                    <p class="project-subtitle">Steven Yearick | Dec 2019 – Apr 2020</p>
+                    <p>Led team of three in comprehensive 28-year inventory project across 56 collections. Achieved 97% accuracy rate, reduced non-viable stock, and cut inventory costs by 10% while completing project within five-month timeline and budget.</p>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-tag">Brand Strategy</div>
+                    <h3>Fashion Stylist & Brand Manager</h3>
+                    <p class="project-subtitle">The CoolBook | Jan 2011 – Aug 2018</p>
+                    <p>Styled models for annual photoshoots and secured exclusive production contracts with luxury designers. Maintained brand aesthetic standards while contributing to increased revenue and customer satisfaction through strategic designer partnerships.</p>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-tag">Event Production</div>
+                    <h3>Pageant Coordinator</h3>
+                    <p class="project-subtitle">Miss Junior High, HS & Collegiate America | Jul 2017 – Jul 2018</p>
+                    <p>Coordinated scholarship beauty pageant with 3 divisions and 300+ contestants in inaugural year. Managed team of 10 volunteers and vendors, achieving 95% registration completion rate through streamlined systems and clear communication.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="music">
+            <div class="section-number">04</div>
+            <h2>Music</h2>
+            <p class="music-intro">Where luxury meets psychological horror. My music explores power dynamics, mythological transformation, and the violence of beauty through dark pop and experimental electronic soundscapes.</p>
+            
+            <div class="album-container">
+                <div class="album-header">
+                    <h3 class="album-title">hydrated</h3>
+                    <p class="album-description">A concept album dissecting the commodification of beauty and the surveillance state of luxury retail. Madison Avenue as panopticon.</p>
+                </div>
+                <div class="tracklist">
+                    <div class="track-number">01</div>
+                    <div class="track-title">Rich Pretend</div>
+                    <div class="track-duration">03:04</div>
+                    
+                    <div class="track-number">02</div>
+                    <div class="track-title">Mannequin Shenanigans</div>
+                    <div class="track-duration">03:05</div>
+                    
+                    <div class="track-number">03</div>
+                    <div class="track-title">Nightmare On Madison</div>
+                    <div class="track-duration">03:00</div>
+                    
+                    <div class="track-number">04</div>
+                    <div class="track-title">The Archivist</div>
+                    <div class="track-duration">02:33</div>
+                    
+                    <div class="track-number">05</div>
+                    <div class="track-title">I Didn't Ask To Be Seen</div>
+                    <div class="track-duration">02:18</div>
+                    
+                    <div class="track-number">06</div>
+                    <div class="track-title">Ozempic Confessions</div>
+                    <div class="track-duration">03:08</div>
+                    
+                    <div class="track-number">07</div>
+                    <div class="track-title">Surveillance</div>
+                    <div class="track-duration">03:32</div>
+                    
+                    <div class="track-number">08</div>
+                    <div class="track-title">Blonde Is A Blood Sport</div>
+                    <div class="track-duration">02:48</div>
+                    
+                    <div class="track-number">09</div>
+                    <div class="track-title">The Dress Code Is Revenge</div>
+                    <div class="track-duration">03:04</div>
+                    
+                    <div class="track-number">10</div>
+                    <div class="track-title">The Inventory</div>
+                    <div class="track-duration">02:29</div>
+                    
+                    <div class="track-number">11</div>
+                    <div class="track-title">Couture</div>
+                    <div class="track-duration">01:20</div>
+                    
+                    <div class="track-number">12</div>
+                    <div class="track-title">Final Form</div>
+                    <div class="track-duration">01:58</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-number">05</div>
+            <h2>Let's Talk</h2>
+            <div class="contact-content">
+                <div class="contact-text">
+                    Whether you need strategic consulting, VIP client relations expertise, or someone to dissect the psychosexual dynamics of your brand positioning—let's connect.
+                </div>
+                <div class="contact-links">
+                    <div class="contact-item">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value"><a href="mailto:RothRanbom@outlook.com">RothRanbom@outlook.com</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">(310) 948-0888</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value"><a href="https://linkedin.com/in/rothranbom" target="_blank">linkedin.com/in/rothranbom</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Website</div>
+                        <div class="contact-value"><a href="https://thebridalboy.com" target="_blank">thebridalboy.com</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">Manhattan, New York</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Roth Ranbom. Crafted with strategic precision and artistic chaos.</p>
+    </footer>
+</body>
+</html>
